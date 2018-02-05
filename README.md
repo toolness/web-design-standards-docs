@@ -1,6 +1,6 @@
 # U.S. Web Design Standards documentation
 
-This repo includes code and documentation for the  U.S. Web Design Standards website. For information on the Standards (components) themselves, please visit [web-design-standards](https://github.com/18F/web-design-standards).
+This repo includes code and documentation for the  U.S. Web Design Standards website. For information on the Standards (components) themselves, please visit [web-design-standards](https://github.com/uswds/uswds).
 
 Note that this README includes steps to pull the latest version of the Standards into your local instance of the documentation.
 
@@ -53,7 +53,7 @@ Here are a few other utility commands you may find useful:
 
 Sometimes you will want to use the latest version of the `web-design-standards` repo. Follow these steps to do so:
 
-1. Clone the latest version of the [`web-design-standards` repo](https://github.com/18F/web-design-standards/tree/develop).
+1. Clone the latest version of the [`web-design-standards` repo](https://github.com/uswds/uswds/tree/develop).
 1. Run `npm install` to install the dependencies required for the package in the `web-design-standards` directory.
 1. Run `npm run build` to create the built version of the Standards in the `web-design-standards` directory.
 1. Run `npm link` in the _root level_ of the `web-design-standards` directory on your local machine.
@@ -76,6 +76,30 @@ Federalist also builds public previews for each branch pushed to GitHub. For ins
 
 https://federalist.fr.cloud.gov/preview/18f/web-design-standards-docs/develop/
 
+### Updating the USWDS version
+
+To update the version of USWDS being used, change the version that
+`package.json` specifies in its `dependencies` section.
+
+We currently pull USWDS via git rather than npm, as it allows us to
+use any tag or commit during development. To install a specific commit,
+you can use e.g.:
+
+```
+npm install --save uswds/uswds#fb49e4f
+```
+
+Alternatively, to use a specific version tag, use e.g.:
+
+```
+npm install --save uswds/uswds#v1.3.1
+```
+
+This version number or commit hash is automatically parsed when the site
+is built and used for display on the site (see `_plugins/uswds_version.rb`
+for details). Therefore, be sure to use an actual version tag on all
+`master` branch commits--otherwise a commit hash will show up as the
+version on the production site, which would be confusing.
 
 ### Adding content to the "Updates" section
 
