@@ -4,9 +4,11 @@ const fs = require('fs');
 const urlParse = require('url').parse;
 const chromeLauncher = require('chrome-launcher');
 const CDP = require('chrome-remote-interface');
+const CDPV = require('chrome-remote-interface/lib/protocol.json').version;
 const chalk = require('chalk');
 const runServer = require('./static-server');
 
+const CDP_VERSION = `${CDPV.major}.${CDPV.minor}`;
 const REMOTE_CHROME_URL = process.env['REMOTE_CHROME_URL'];
 const AXE_JS = fs.readFileSync(__dirname + '/../node_modules/axe-core/axe.js');
 const PAGES = [
@@ -56,6 +58,12 @@ Promise.all([runServer(), getChrome()]).then(([server, chrome]) => {
   const chromeHost = chrome.host || 'localhost';
   console.log(`Static file server is listening at ${server.url}.`);
   console.log(`Chrome is debuggable on http://${chromeHost}:${chrome.port}.`);
+  console.log(
+    `Using Chrome DevTools Protocol version ${CDP_VERSION}.\n` +
+    `If this test stops working, consider running\n` +
+    `"npm i --save chrome-remote-interface@latest" and \n` +
+    `ensure you're using the latest version of Chrome.`
+  );
   console.log(`Running aXe on:`);
 
   CDP({
